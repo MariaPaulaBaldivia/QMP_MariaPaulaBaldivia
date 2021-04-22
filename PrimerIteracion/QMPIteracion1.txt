@@ -1,0 +1,69 @@
+class Usuarie {
+    List<Prenda> prendasDelUsuarie
+    List<Atuendo> atuendos
+
+    metodo cargarPrenda(Prenda unaPrenda){
+         if (unaPrenda.esValida()) {
+             prendasDelUsuarie.add(unaPrenda)
+         }  
+     }
+}
+
+class Atuendo {
+    List<Prenda> prendas
+}
+
+class Prenda {
+    TipoDePrenda tipoDePrenda
+    Categoria categoria
+    String??? tela
+    Color colorPrincipal
+
+    metodo esValida() {
+        retornar this.noLeFaltaNingunItem() && tipoDePrenda.perteneceA(categoria)
+    }
+
+    metodo noLeFaltaNingunItem() {
+        // TODO -no se me ocurre como hacer esta validación
+        retornar unBooleano
+    }
+}
+
+class PrendaConColorSecundario {
+    Color colorSecundario
+}
+
+Enum Categoria {
+    PARTESUPERIOR, CALZADO, PARTEINFERIOR, ACCESORIO
+}
+
+
+Enum TipoDePrenda {
+    REMERA {
+        metodo perteneceA(unaCategoria) {
+            retornar PARTESUPERIOR = unaCategoria
+        }
+    }
+    JEAN {
+        metodo perteneceA(unaCategoria) {
+            retornar PARTEINFERIOR = unaCategoria
+        }
+    }
+    .
+    .
+    .
+}
+
+O
+
+/* Esta manera no me convence mucho pues me parece que por al instanciar una clase y en lugar de ponerle "Remera" se le pone "remera" o cualquier otro nombre si alguien busca remeras algunas nunca se encontraran */
+
+class TipoDePrenda {
+    String nombreDeLaPrenda
+    Categoria categoriaDePrenda
+
+    metodo perteneceA(unaCategoria) {
+        retornar categoriaDePrenda = unaCategoria
+    }
+    
+}
