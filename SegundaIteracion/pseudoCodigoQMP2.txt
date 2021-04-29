@@ -1,0 +1,102 @@
+class Usuarie {
+    List<Prenda> prendasDelUsuarie
+
+    void cargarPrenda(Prenda unaPrenda){           // No requiere validación, pues al crear una prenda nos aseguramos
+             prendasDelUsuarie.add(unaPrenda)       // que sea VALIDA
+     }
+}
+
+class Institucion {
+    List<Uniforme> uniformesValidos;         // Lista de uniformes
+
+    void recibirSugerencia(Uniforme unUniforme) { //Deberia lanzar un error si el uniforme no es válido TODO
+        
+        if(unUniforme.esValido()) {
+            uniformesValidos.add(unUniforme);
+        }
+    }
+}
+
+class Uniforme {
+    List<Prenda> prendas;
+
+    boolean esValido(){
+        return this.algunaEs(PARTESUPERIOR) 
+                && this.algunaEs(PARTEINFERIOR)
+                && this.algunaEs(CALZADO);
+    }
+
+    boolean algunaEs(Categoria unaCategoria) {    // Devuelve si alguna prenda cumple categoria
+        return this.prendas.any(prenda -> prenda.esUsadoPara(unaCategoria)); 
+    }
+}
+
+
+class Prenda {
+    TipoDePrenda tipo;    
+    Color colorPrincipal;
+    Material Material;
+    Color colorSecundario;
+
+    Prenda(TipoDePrenda tipo, Material material){
+        this.tipo = requireNonNull(tipo, "El tipo es OBLIGATORIO);
+        this.material = requireNonNull(material, "El material es OBLIGATORIO);
+    }
+
+    Categoria categoria() {
+        return tipo.categoria();
+    }
+
+    boolean esUsadoPara(Categoria unaCategoria) {
+        return this.categoria().equals(unaCategoria);
+    }
+}
+
+class Material {
+    Tela tela;
+    Trama trama = Trama.LISO; ??
+    Color colorPrincipal;
+    Color colorSecundario;
+
+    Material(Tela tela, Color colorPrincipal, Trama trama) {
+        this.tela = requireNonNull(tela, "La tela es OBLIGATORIA);
+        this.colorPrincipal = requireNonNull(colorPrincipal, "El color ppal es OBLIGATORIO);
+        this.trama = trama;
+    }
+
+    void setColorSecundario(Color unColor) {
+        this.colorSecundario = unColor;
+    }
+}
+
+Enum Trama {
+    LISA, LUNARES, CUADROS, ESTAMPADO
+}
+
+Enum Tela{
+    ALGODON, LYCRA, MODAL, SEDA, JEAN, PIQUÉ //entre otros
+}
+
+
+Enum Categoria {
+    PARTESUPERIOR, CALZADO, PARTEINFERIOR, ACCESORIO
+}
+
+class TipoDePrenda {
+    TipoPrenda tipo;
+    Categoria categoria;
+
+    TipoDePrenda(TipoPrenda tipo, Categoria categoria){
+        this.tipo = tipo;
+        this.categoria = categoria;
+    }
+
+    Categoria categoria() {
+        return this.categoria;
+    }
+}
+
+Enum TipoPrenda {
+    REMERA, PANTALON, CAMISA_MANGA_LARGA, CAMISA_MANGA_CORTA, FALDA, CAMPERA, 
+    CHOMBA //entre otros
+}
