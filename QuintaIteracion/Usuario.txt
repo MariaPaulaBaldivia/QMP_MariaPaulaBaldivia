@@ -1,0 +1,48 @@
+class Usuarie {
+    List<Prenda> prendasDelUsuarie
+    List<Prenda> prendasDeUsuarie
+    List<Borrador> borradoresUsuarie
+    List<Guardarropa> guardarropas
+    List<Propuesta> propuestasActuales
+
+    void cargarPrenda(Prenda unaPrenda){           // No requiere validación, pues al crear una prenda nos aseguramos
+             prendasDelUsuarie.add(unaPrenda)       // que sea VALIDA
+     }
+
+    void agregarPrendaEn(Guardarropa guardarropa, Prenda unaPrenda) {
+        guardarropas.agregarPrenda(prenda);
+    }
+
+    void proponerPrendaAAgregarEn(Guardarropa guardarropa, Prenda prenda) {
+        if(guardarropa.esUsuarieDelGuardarropa(this)) {
+            PropuestaParaAgregar propuesta = new PropuestaParaAgregar(prenda, guardarropa, this)
+            guardarropa.agregarPropuesta(propuesta) 
+        }
+    }
+
+    void proponerPrendaAQuitar(Guardarropa guardarropa, Prenda prenda) {
+        if(guardarropa.esUsuarieDelGuardarropa(this)) {
+            PropuestaParaQuitar propuesta = new PropuestaParaQuitar(prenda, guardarropa, this)
+            guardarropa.agregarPropuesta(propuesta) 
+        }
+    }
+
+    void agregarPropuestaAValidar(Propuesta propuesta) {
+        propuestasActuales.add(propuesta)
+    }
+
+    void quitarPropuesta(Propuesta propuesta) {
+        propuestasActuales.remove(propuesta)
+    }
+
+    void aceptarPropuesta(Propuesta propuesta) {
+        propuesta.aceptar()
+        this.quitarPropuesta(propuesta)
+    }
+
+    void rechazarPropuesta(Propuesta propuesta) {
+        propuesta.rechazar()
+        this.quitarPropuesta(propuesta)
+    }
+
+}

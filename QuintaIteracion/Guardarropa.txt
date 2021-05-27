@@ -1,0 +1,47 @@
+class Guardarropa {
+    List<Prenda> prendas
+    List<Propuesta> propuestas
+    List<Usuarie> usuariesDelGuardarropa
+
+    void agregarPrenda(Prenda prenda) {
+        prendas.add(prenda)
+    }
+
+    void quitarPrenda(Prenda prenda) {
+        prendas.remove(prenda)
+    }
+
+    boolean esUsuarieDelGuardarropa(Usuarie usuarie) {
+        return usuariesDelGuardarropa.contains(usuarie)
+    } 
+
+    void aceptarPropuestaAgregar(PropuestaParaAgregar propuesta) {
+        this.agregarPrenda(propuesta.getPrendaPropuesta())
+        this.quitarPropuesta(propuesta)
+    }
+
+    void rechazarPropuesta(Propuesta propuesta) {
+        this.quitarPropuesta(propuesta)
+    }
+
+    void aceptarPropuestaAQuitar(PropuestaParaQuitar propuesta) {
+        this.quitarPrenda(propuesta.getPrendaPropuesta())
+        this.quitarPropuesta(propuesta)
+    }
+
+    void quitarPropuesta(Propuesta) {
+        propuestas.remove(propuesta)
+    }
+
+    void agregarPropuesta(Propuesta) {
+        propuestas.add(propuesta)
+    }
+
+    void enviarPropuestaAXUsuarie() {
+        Propuesta propuesta = propuesta.get(0)
+        Usuarie usuarieQueHizoLaPropuesta = propuesta.getUsuarieQueHizoLaPropuesta()
+
+        usuariesDelGuardarropa.findFirst(x -> x.notEquals(usuarieQueHizoLaPropuesta))
+                              .agregarPropuestaAValidar(propuesta)
+    }
+}

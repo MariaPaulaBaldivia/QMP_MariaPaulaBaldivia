@@ -1,0 +1,27 @@
+abstract class Propuesta {
+    
+Prenda prendaPropuesta
+Guardarropa guardarropa
+Usuarie usuarieQueHizoLaPropuesta
+
+abstract void aceptar()
+
+void rechazar() {
+    guardarropa.rechazarPropuesta(this)
+}
+
+}
+
+class PropuestaParaAgregar extends Propuesta {
+    void aceptar() {
+        guardarropa.aceptarPropuestaAgregar(this)
+    }
+
+}
+
+class PropuestaParaQuitar extends Propuesta {
+    void aceptar() {
+        guardarropa.aceptarPropuestaAQuitar(this)
+    }
+
+}
